@@ -1,0 +1,6 @@
+$opts = struct{strategy => "rr", max => 2,}
+$set = schedule("xsched", $opts) # pick two
+
+file "/tmp/mgmt/scheduled-${hostname()}" {
+	content => template("set: {{ . }}\n", $set),
+}

@@ -13,6 +13,7 @@ function run-test()
 
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"	# dir!
 cd "${ROOT}"
+make build
 
 buildout='test-examples.out'
 # make symlink to outside of package
@@ -34,6 +35,7 @@ rm `basename "$linkto"`
 cd ..
 rmdir "$tmpdir"	# cleanup
 
+make clean
 if [[ -n "$failures" ]]; then
 	echo 'FAIL'
 	echo "The following tests (in: ${linkto}) have failed:"

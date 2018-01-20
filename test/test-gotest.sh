@@ -12,6 +12,7 @@ function run-test()
 
 ROOT=$(dirname "${BASH_SOURCE}")/..
 cd "${ROOT}"
+make build
 
 base=$(go list .)
 for pkg in `go list ./... | grep -v "^${base}/vendor/" | grep -v "^${base}/examples/" | grep -v "^${base}/test/" | grep -v "^${base}/old/" | grep -v "^${base}/tmp/"`; do
@@ -23,6 +24,7 @@ for pkg in `go list ./... | grep -v "^${base}/vendor/" | grep -v "^${base}/examp
 	fi
 done
 
+make clean
 if [[ -n "$failures" ]]; then
 	echo 'FAIL'
 	echo 'The following `go test` runs have failed:'

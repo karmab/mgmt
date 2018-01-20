@@ -20,7 +20,7 @@
 # `bytes, err := bindata.Asset("FILEPATH")`
 # where FILEPATH is the path of the original input file relative to `bindata/`.
 
-.PHONY: build
+.PHONY: build clean
 default: build
 
 build: bindata.go
@@ -31,3 +31,8 @@ bindata.go: ../COPYING
 	go-bindata --pkg bindata -o ./$@ $^
 	# gofmt the output file
 	gofmt -s -w $@
+	@ROOT="$$( cd "$$( dirname "$${BASH_SOURCE[0]}" )" && cd .. && pwd )" && $$ROOT/misc/header.sh '$@'
+
+clean:
+	# remove generated bindata/*.go
+	@ROOT="$$( cd "$$( dirname "$${BASH_SOURCE[0]}" )" && cd .. && pwd )" && rm *.go
